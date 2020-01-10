@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dm.mapper.BookMapper">
+
+    <sql id="Base_Column_List">
+        id,`name`,en_name enName,author,
+        imgurl,create_time createTime,creator creator,category category,
+        update_time updateTime,`status` status,discription discription,price price,comment_num commentNum
+    </sql>
+    <select id="getPageList" resultType="com.search.mgr.model.ReadBookPd">
+        select
+        <include refid="Base_Column_List"/>
+        from read_book_pd
+        WHERE id >= (select id from read_book_pd limit #{start}, 1) limit #{size}
+    </select>
+
+    <select id="queryByList" resultType="com.dm.bean.Book">
+        select * from read_book_pd
+    </select>
+
+    <select id="countAll" resultType="Integer">
+        select count(*) from read_book_pd
+    </select>
+</mapper>

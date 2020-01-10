@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhiziyun.gdt.mapper.ReadBookPdMapper">
+    <!-- ReadBookPd -->
+    <resultMap id="BaseResultMap" type="com.zhiziyun.gdt.bean.ReadBookPd">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="enName" column="en_name"/>
+        <result property="author" column="author"/>
+        <result property="imgurl" column="imgurl"/>
+        <result property="discription" column="discription"/>
+        <result property="createTime" column="create_time"/>
+        <result property="creator" column="creator"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
+        <result property="commentNum" column="comment_num"/>
+        <result property="price" column="price"/>
+        <result property="category" column="category"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, name, en_name, author, imgurl, discription, create_time, creator, update_time, status, comment_num, price, category    </sql>
+
+    <sql id="Base_Where_Clause">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null">
+                and name = #{name}
+            </if>
+            <if test="en_name != null">
+                and en_name = #{en_name}
+            </if>
+            <if test="author != null">
+                and author = #{author}
+            </if>
+            <if test="imgurl != null">
+                and imgurl = #{imgurl}
+            </if>
+            <if test="discription != null">
+                and discription = #{discription}
+            </if>
+            <if test="create_time != null">
+                and create_time = #{create_time}
+            </if>
+            <if test="creator != null">
+                and creator = #{creator}
+            </if>
+            <if test="update_time != null">
+                and update_time = #{update_time}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="comment_num != null">
+                and comment_num = #{comment_num}
+            </if>
+            <if test="price != null">
+                and price = #{price}
+            </if>
+            <if test="category != null">
+                and category = #{category}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 主键单条查询 主键类型默认支持Integer-->
+    <select id="queryById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from read_book_pd where id=#{id}
+    </select>
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.zhiziyun.gdt.bean.ReadBookPd">
+        UPDATE read_book_pd
+        SET
+            name        = #{name},
+            en_name     = #{en_name},
+            author      = #{author},
+            imgurl      = #{imgurl},
+            discription = #{discription},
+            create_time = #{create_time},
+            creator     = #{creator},
+            update_time = #{update_time},
+            status      = #{status},
+            comment_num = #{comment_num},
+            price       = #{price},
+            category    = #{category}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById">
+        DELETE FROM read_book_pd
+        WHERE id = #{id}
+    </delete>
+    <!-- 查list -->
+    <select id="queryByList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from read_book_pd
+        <include refid="Base_Where_Clause"/>
+        <if test="pager.mySQLOrderCondition != null and pager.mySQLOrderCondition != ''">
+            ${pager.mySQLOrderCondition}
+        </if>
+        <if test="pager.mySQLQueryCondition != null and pager.mySQLQueryCondition != ''">
+            ${pager.mySQLQueryCondition}
+        </if>
+    </select>
+
+    <select id="queryByCount" resultType="java.lang.Integer">
+        select count(1)
+        from read_book_pd
+        <include refid="Base_Where_Clause"/>
+    </select>
+</mapper>
